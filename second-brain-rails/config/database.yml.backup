@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: second_brain_development
+  username: <%= ENV['DB_USER'] || 'second_brain_app' %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+
+test:
+  <<: *default
+  database: second_brain_test
+  username: <%= ENV['DB_USER'] || 'second_brain_app' %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+
+production:
+  <<: *default
+  database: <%= ENV['DB_NAME'] || 'second_brain_production' %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  # For Cloud SQL, use unix socket
+  host: <%= ENV['DB_HOST'] || '/cloudsql/second-brain-app-ore:us-central1:second-brain-db' %>

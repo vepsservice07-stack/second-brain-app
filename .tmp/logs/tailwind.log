@@ -1,0 +1,43 @@
+I, [2025-12-09T15:30:30.070283 #25576]  INFO -- : VEPS Integration: MOCKED - Set VEPS_ENABLED=true to enable
+≈ tailwindcss v4.1.16
+
+sh: 1: watchman: not found
+Found 4 warnings while optimizing generated CSS:
+
+Issue #1:
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:\#\*_will_change\!\] {[22m
+[2m│[22m     rdoc-ref: #* will change!;
+[2m┆[22m                             [33m[2m^--[22m Unexpected token Delim('!')[39m
+[2m┆[22m
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:\#search\@Argument\+translation\] {[22m
+
+Issue #2:
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:Persistence\#destroy\!\] {[22m
+[2m│[22m     rdoc-ref: Persistence#destroy!;
+[2m┆[22m                                  [33m[2m^--[22m Unexpected token Delim('!')[39m
+[2m┆[22m
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:Persistence\#destroy\] {[22m
+
+Issue #3:
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:Persistence\#save\!\] {[22m
+[2m│[22m     rdoc-ref: Persistence#save!;
+[2m┆[22m                               [33m[2m^--[22m Unexpected token Delim('!')[39m
+[2m┆[22m
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:Persistence\#save\] {[22m
+
+Issue #4:
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:Persistence\#update_attribute\!\] {[22m
+[2m│[22m     rdoc-ref: Persistence#update attribute!;
+[2m┆[22m                                           [33m[2m^--[22m Unexpected token Delim('!')[39m
+[2m┆[22m
+[2m│   }[22m
+[2m│   .\[rdoc-ref\:QueryMethods\#group\] {[22m
+
+Done in 7s

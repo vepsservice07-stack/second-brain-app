@@ -1,0 +1,29 @@
+<%= form_with(model: note) do |form| %>
+  <% if note.errors.any? %>
+    <div class="card" style="background: rgba(193, 119, 103, 0.1); border-left: 3px solid var(--color-error); margin-bottom: 2rem;">
+      <h3 style="color: var(--color-error); margin-bottom: 1rem;">
+        <%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:
+      </h3>
+      <ul style="margin-left: 1.5rem; color: var(--color-error);">
+        <% note.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "Title", class: "form-label" %>
+    <%= form.text_field :title, class: "form-input", placeholder: "What's on your mind?" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content, "Content", class: "form-label" %>
+    <%= form.text_area :content, rows: 15, class: "form-input form-textarea", placeholder: "Start writing... we're capturing your thinking patterns." %>
+  </div>
+
+  <div class="flex gap-2">
+    <%= form.submit "Save Note", class: "btn btn-primary" %>
+    <%= link_to "Cancel", notes_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

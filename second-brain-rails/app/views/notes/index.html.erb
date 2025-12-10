@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="flex-between mb-4" style="flex-wrap: wrap; gap: 1.5rem;">
+    <div>
+      <h1>Your Notes</h1>
+      <p class="text-subtle">Capture your thoughts, organize your mind</p>
+    </div>
+    <%= link_to new_note_path, class: "btn btn-primary" do %>
+      <span>✨ New Note</span>
+    <% end %>
+  </div>
+  
+  <!-- Search & Filter Bar -->
+  <div class="card mb-4" style="padding: 1.5rem;">
+    <%= form_with url: notes_path, method: :get, local: true do |f| %>
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end;">
+        <div>
+          <%= f.text_field :search, 
+              value: params[:search],
+              placeholder: "Search notes...", 
+              class: "form-input",
+              style: "margin: 0;" %>
+        </div>
+        
+        <div style="display: flex; gap: 0.5rem;">
+          <%= f.submit "🔍 Search", class: "btn btn-primary" %>
+          
+          <% if params[:search].present? || params[:filter].present? %>
+            <%= link_to "Clear", notes_path, class: "btn btn-secondary" %>
+          <% end %>
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
+        <%= link_to "All", notes_path, 
+            class: "btn btn-ghost",
+            style: (!params[:filter] ? "background: var(--color-bg); border-color: var(--color-primary);" : "") %>
+        <%= link_to "Today", notes_path(filter: 'today'), 
+            class: "btn btn-ghost",
+            style: (params[:filter] == 'today' ? "background: var(--color-bg); border-color: var(--color-primary);" : "") %>
+        <%= link_to "This Week", notes_path(filter: 'week'), 
+            class: "btn btn-ghost",
+            style: (params[:filter] == 'week' ? "background: var(--color-bg); border-color: var(--color-primary);" : "") %>
+        <%= link_to "This Month", notes_path(filter: 'month'), 
+            class: "btn btn-ghost",
+            style: (params[:filter] == 'month' ? "background: var(--color-bg); border-color: var(--color-primary);" : "") %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Notes Count -->
+  <% if params[:search].present? %>
+    <p class="text-subtle mb-3">
+      Found <%= pluralize(@notes.count, 'note') %> matching "<strong><%= params[:search] %></strong>"
+    </p>
+  <% else %>
+    <p class="text-subtle mb-3">
+      <%= pluralize(@notes.count, 'note') %> total
+    </p>
+  <% end %>
+
+  <!-- Notes Grid -->
+  <% if @notes.any? %>
+    <div style="display: grid; gap: 1.5rem;">
+      <% @notes.each do |note| %>
+        <%= link_to note, style: "text-decoration: none;" do %>
+          <div class="card">
+            <h3 class="card-title"><%= note.title %></h3>
+            <p class="card-subtitle">
+              <%= truncate(note.content, length: 200) %>
+            </p>
+            <div class="flex gap-2 text-subtle" style="font-size: 0.85rem;">
+              <span>📝 <%= note.content.to_s.split.length %> words</span>
+              <span>•</span>
+              <span>🕐 <%= time_ago_in_words(note.updated_at) %> ago</span>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card text-center" style="padding: 4rem 2rem;">
+      <% if params[:search].present? %>
+        <h2 style="color: var(--color-text-subtle); margin-bottom: 1rem;">
+          🔍 No notes found
+        </h2>
+        <p class="text-subtle mb-3">
+          Try a different search term or <%= link_to "view all notes", notes_path, style: "color: var(--color-primary);" %>
+        </p>
+      <% else %>
+        <h2 style="color: var(--color-text-subtle); margin-bottom: 1rem;">
+          ✨ No notes yet
+        </h2>
+        <p class="text-subtle mb-3">
+          Start capturing your thoughts and watch your second brain come to life
+        </p>
+        <%= link_to "Create Your First Note", new_note_path, class: "btn btn-accent" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

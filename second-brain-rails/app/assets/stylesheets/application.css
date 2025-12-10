@@ -1,0 +1,85 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+/* Structure Suggestions Panel */
+.structure-suggestions-panel {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  color: #e0e0e0;
+}
+
+.suggestions-header h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #4a9eff;
+}
+
+.cognitive-state {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.suggestions-list {
+  margin: 12px 0;
+}
+
+.suggestion-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-item:hover {
+  background: rgba(74, 158, 255, 0.1);
+  border-color: #4a9eff;
+}
+
+.suggestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.suggestion-name {
+  font-weight: 600;
+  color: #4a9eff;
+}
+
+.suggestion-confidence {
+  font-size: 11px;
+  color: #888;
+}
+
+.suggestion-item kbd {
+  background: #333;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+}
+
+.suggestion-example {
+  font-size: 11px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.suggestions-footer {
+  font-size: 10px;
+  color: #666;
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid #333;
+}

@@ -1,0 +1,69 @@
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for stdbool.h... yes
+checking for stdint.h... yes
+checking for bool in stdbool.h... yes
+checking for u_int8_t in stdint.h... yes
+checking for u_int16_t in stdint.h... yes
+checking for int32_t in stdint.h... yes
+checking for u_int32_t in stdint.h... yes
+checking for int64_t in stdint.h... yes
+checking for u_int64_t in stdint.h... yes
+checking for exp10()... yes
+checking for rb_arithmetic_sequence_extract()... yes
+checking for rb_cComplex... yes
+creating /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/numo/extconf.h
+creating Makefile
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray
+make DESTDIR\= sitearchdir\=./.gem.20251209-315386-bwzkyy sitelibdir\=./.gem.20251209-315386-bwzkyy clean
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray
+make DESTDIR\= sitearchdir\=./.gem.20251209-315386-bwzkyy sitelibdir\=./.gem.20251209-315386-bwzkyy
+compiling SFMT.c
+compiling array.c
+compiling data.c
+compiling index.c
+compiling math.c
+compiling narray.c
+compiling ndloop.c
+compiling rand.c
+compiling step.c
+compiling struct.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_bit.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/bit.rb
+compiling t_bit.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_dcomplex.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/dcomplex.rb
+compiling t_dcomplex.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_dfloat.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/dfloat.rb
+compiling t_dfloat.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_int16.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/int16.rb
+compiling t_int16.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_int32.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/int32.rb
+compiling t_int32.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_int64.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/int64.rb
+compiling t_int64.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_int8.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/int8.rb
+compiling t_int8.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_robject.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/robject.rb
+compiling t_robject.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_scomplex.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/scomplex.rb
+compiling t_scomplex.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_sfloat.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/sfloat.rb
+compiling t_sfloat.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_uint16.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/uint16.rb
+compiling t_uint16.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_uint32.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/uint32.rb
+compiling t_uint32.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_uint64.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/uint64.rb
+compiling t_uint64.c
+ruby /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/cogen.rb -l -o t_uint8.c /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray/gen/def/uint8.rb
+compiling t_uint8.c
+linking shared-object numo/narray.so
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray
+make DESTDIR\= sitearchdir\=./.gem.20251209-315386-bwzkyy sitelibdir\=./.gem.20251209-315386-bwzkyy install
+/usr/bin/install -c -m 0755 narray.so ./.gem.20251209-315386-bwzkyy/numo
+installing narray libraries
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/numo-narray-0.9.2.1/ext/numo/narray
+make DESTDIR\= sitearchdir\=./.gem.20251209-315386-bwzkyy sitelibdir\=./.gem.20251209-315386-bwzkyy clean

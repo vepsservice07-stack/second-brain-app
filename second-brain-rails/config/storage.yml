@@ -1,0 +1,11 @@
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+google:
+  service: GCS
+  project: 
+  credentials: <%= Rails.root.join("config/gcs_keyfile.json") %>
+  bucket: second-brain-attachments-
+
+# Use google in production, local in development/test

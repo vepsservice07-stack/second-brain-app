@@ -1,0 +1,60 @@
+<div style="max-width: 1000px;">
+  <div style="margin-bottom: 32px;">
+    <div style="font-size: 24px; font-weight: 700; letter-spacing: 0.1em;">SECOND BRAIN</div>
+    <div class="meta" style="margin-top: 4px;">STATUS :: ACTIVE :: <%= Time.current.strftime("%Y-%m-%d %H:%M:%S") %></div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px;">
+    <div class="card" style="padding: 20px;">
+      <div class="stat-value"><%= @note_count %></div>
+      <div class="meta" style="margin-top: 4px;">NOTES</div>
+    </div>
+    
+    <div class="card" style="padding: 20px;">
+      <div class="stat-value"><%= @tag_count %></div>
+      <div class="meta" style="margin-top: 4px;">TAGS</div>
+    </div>
+    
+    <div class="card" style="padding: 20px;">
+      <div style="font-size: 14px; color: var(--accent);">
+        <%= link_to "⌘K NEW NOTE", new_note_path %>
+      </div>
+      <div class="meta" style="margin-top: 4px;">KEYBOARD</div>
+    </div>
+  </div>
+
+  <% if @recent_notes.any? %>
+    <div style="margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">RECENT</div>
+        <%= link_to "VIEW ALL →", notes_path, style: "font-size: 11px;" %>
+      </div>
+    </div>
+    
+    <div>
+      <% @recent_notes.each do |note| %>
+        <%= link_to note, class: "note-card", style: "display: block; text-decoration: none;" do %>
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 600;"><%= note.title %></div>
+              <div class="meta" style="margin-top: 4px;">
+                seq: <span class="sequence sequence-<%= note.sequence_number ? 'confirmed' : 'pending' %>"><%= note.sequence_number || 'pending' %></span>
+                · <%= time_ago_in_words(note.updated_at) %>
+                <% if note.tags.any? %>
+                  · <%= note.tags.count %> tags
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card" style="padding: 40px; text-align: center;">
+      <div class="meta">EMPTY STATE</div>
+      <div style="margin-top: 8px;">
+        <%= link_to "+ CREATE FIRST NOTE", new_note_path, style: "font-size: 12px;" %>
+      </div>
+    </div>
+  <% end %>
+</div>

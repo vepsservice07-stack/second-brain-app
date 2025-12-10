@@ -1,0 +1,1367 @@
+=> Booting Puma
+=> Rails 8.1.1 application starting in development 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 7.1.0 ("Neon Witch")
+* Ruby version: ruby 3.2.3 (2024-01-18 revision 52bb2ac0a6) [x86_64-linux-gnu]
+*  Min threads: 3
+*  Max threads: 3
+*  Environment: development
+*          PID: 25613
+* Listening on http://127.0.0.1:3000
+* Listening on http://[::1]:3000
+Use Ctrl-C to stop
+Started GET "/" for ::1 at 2025-12-09 15:30:39 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (25.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='SecondBrainRails'*/[0m
+Processing by HomeController#index as HTML
+  [1m[36mNote Count (24.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:4:in `index'
+  [1m[36mTag Count (29.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tags" /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/controllers/home_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mNote Exists? (29.2ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:27
+  [1m[36mNote Load (28.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 5 /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:36
+  [1m[36mTag Exists? (25.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:44
+  [1m[36mTag Count (25.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:45
+  [1m[36mTag Exists? (25.8ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='index',application='SecondBrainRails',controller='home'*/[0m
+  ↳ app/views/home/index.html.erb:44
+  Rendered home/index.html.erb within layouts/application (Duration: 360.5ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 378.5ms | GC: 0.0ms)
+Completed 200 OK in 1002ms (Views: 90.1ms | ActiveRecord: 625.9ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/notes/new" for ::1 at 2025-12-09 15:32:23 -0500
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  [1m[36mTag Exists? (233.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (34.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  Rendered notes/_form.html.erb (Duration: 299.6ms | GC: 0.0ms)
+  Rendered notes/new.html.erb within layouts/application (Duration: 300.7ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 305.9ms | GC: 0.0ms)
+Completed 200 OK in 308ms (Views: 39.4ms | ActiveRecord: 267.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/notes" for ::1 at 2025-12-09 15:34:54 -0500
+Processing by NotesController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"AI Safety Problem", "content"=>"Current AI alignment approaches assume we can specify human values.\r\n\r\nBut what if the problem isn't specification?\r\nWhat if it's that values emerge from context?\r\n\r\n(0.1) - the unspecified margin: cultural context"}, "tag_ids"=>["1"], "commit"=>"CREATE NOTE"}
+  [1m[36mTRANSACTION (238.0ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mNote Create (294.9ms)[0m  [1m[32mINSERT INTO "notes" ("title", "content", "vector_clock", "sequence_number", "user_id", "deleted_at", "created_at", "updated_at") VALUES ('AI Safety Problem', 'Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context', NULL, NULL, NULL, NULL, '2025-12-09 20:34:54.852438', '2025-12-09 20:34:54.852438') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Pluck (35.0ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:69:in `event_evidence'
+  [1m[36mNote Pluck (20.4ms)[0m  [1m[34mSELECT "notes"."id" FROM "notes" INNER JOIN "causal_links" ON "notes"."id" = "causal_links"."cause_note_id" WHERE "causal_links"."effect_note_id" = 3 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:71:in `event_evidence'
+  [1m[36mNote Update (57.1ms)[0m  [1m[33mUPDATE "notes" SET "sequence_number" = 642616 WHERE "notes"."id" = 3 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/concerns/veps_eventable.rb:36:in `submit_veps_event'
+VEPS event submitted: note_created - Sequence: 642616
+  [1m[36mPgSearch::Document Load (181.5ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 3 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mPgSearch::Document Create (210.3ms)[0m  [1m[32mINSERT INTO "pg_search_documents" ("content", "searchable_type", "searchable_id", "created_at", "updated_at") VALUES ('AI Safety Problem Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context', 'Note', 3, '2025-12-09 20:34:56.217555', '2025-12-09 20:34:56.217555') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (22.7ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Load (62.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (96.9ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Exists? (20.7ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 3 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Create (260.8ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (3, 1, '2025-12-09 20:34:56.980643', '2025-12-09 20:34:56.980643') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (306.2ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+Redirected to http://localhost:3000/notes/3
+↳ app/controllers/notes_controller.rb:30:in `create'
+Completed 302 Found in 2709ms (ActiveRecord: 2923.5ms (9 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:34:57 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (147.0ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (304.2ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (219.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (21.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (55.6ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (45.1ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 299.6ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 17.0ms | GC: 1.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 319.4ms | GC: 1.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1544.5ms | GC: 2.3ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1546.2ms | GC: 2.3ms)
+Completed 200 OK in 1834ms (Views: 61.4ms | ActiveRecord: 1713.6ms (7 queries, 0 cached) | GC: 25.5ms)
+
+
+Started GET "/notes/new" for ::1 at 2025-12-09 15:36:21 -0500
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  [1m[36mTag Exists? (215.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (304.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  Rendered notes/_form.html.erb (Duration: 532.5ms | GC: 1.1ms)
+  Rendered notes/new.html.erb within layouts/application (Duration: 533.2ms | GC: 1.1ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 536.7ms | GC: 1.1ms)
+Completed 200 OK in 539ms (Views: 18.5ms | ActiveRecord: 519.0ms (2 queries, 0 cached) | GC: 1.1ms)
+
+
+Started POST "/notes" for ::1 at 2025-12-09 15:38:59 -0500
+Processing by NotesController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Wittgenstein on Meaning", "content"=>"\"Meaning is use in context\"\r\n\r\nLanguage games :: cultural practices :: embedded knowledge\r\n\r\nThe meaning of a word is its use in the language.\r\nCan't extract meaning from context."}, "tag_ids"=>["1"], "commit"=>"CREATE NOTE"}
+  [1m[36mTRANSACTION (284.9ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mNote Create (592.6ms)[0m  [1m[32mINSERT INTO "notes" ("title", "content", "vector_clock", "sequence_number", "user_id", "deleted_at", "created_at", "updated_at") VALUES ('Wittgenstein on Meaning', '"Meaning is use in context"
+
+Language games :: cultural practices :: embedded knowledge
+
+The meaning of a word is its use in the language.
+Can''t extract meaning from context.', NULL, NULL, NULL, NULL, '2025-12-09 20:38:59.024255', '2025-12-09 20:38:59.024255') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Pluck (306.3ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:69:in `event_evidence'
+  [1m[36mNote Pluck (267.8ms)[0m  [1m[34mSELECT "notes"."id" FROM "notes" INNER JOIN "causal_links" ON "notes"."id" = "causal_links"."cause_note_id" WHERE "causal_links"."effect_note_id" = 4 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:71:in `event_evidence'
+  [1m[36mNote Update (24.4ms)[0m  [1m[33mUPDATE "notes" SET "sequence_number" = 731603 WHERE "notes"."id" = 4 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/concerns/veps_eventable.rb:36:in `submit_veps_event'
+VEPS event submitted: note_created - Sequence: 731603
+  [1m[36mPgSearch::Document Load (206.8ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 4 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mPgSearch::Document Create (96.3ms)[0m  [1m[32mINSERT INTO "pg_search_documents" ("content", "searchable_type", "searchable_id", "created_at", "updated_at") VALUES ('Wittgenstein on Meaning "Meaning is use in context"
+
+Language games :: cultural practices :: embedded knowledge
+
+The meaning of a word is its use in the language.
+Can''t extract meaning from context.', 'Note', 4, '2025-12-09 20:39:00.442425', '2025-12-09 20:39:00.442425') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (180.7ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Load (117.9ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (298.2ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Exists? (606.8ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 4 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Create (301.6ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (4, 1, '2025-12-09 20:39:01.467218', '2025-12-09 20:39:01.467218') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (302.2ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+Redirected to http://localhost:3000/notes/4
+↳ app/controllers/notes_controller.rb:30:in `create'
+Completed 302 Found in 3060ms (ActiveRecord: 3585.9ms (9 queries, 0 cached) | GC: 2.5ms)
+
+
+Started GET "/notes/4" for ::1 at 2025-12-09 15:39:02 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (590.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (296.4ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (251.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (22.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (323.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (211.7ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 215.3ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 218.6ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1137.2ms | GC: 1.6ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1140.9ms | GC: 1.6ms)
+Completed 200 OK in 1738ms (Views: 37.6ms | ActiveRecord: 1695.0ms (7 queries, 0 cached) | GC: 1.6ms)
+
+
+Started GET "/notes/new" for ::1 at 2025-12-09 15:39:29 -0500
+Processing by NotesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/new.html.erb within layouts/application
+  [1m[36mTag Exists? (107.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (209.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='new',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  Rendered notes/_form.html.erb (Duration: 329.4ms | GC: 0.9ms)
+  Rendered notes/new.html.erb within layouts/application (Duration: 330.3ms | GC: 0.9ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 334.8ms | GC: 0.9ms)
+Completed 200 OK in 337ms (Views: 19.5ms | ActiveRecord: 316.1ms (2 queries, 0 cached) | GC: 0.9ms)
+
+
+Started POST "/notes" for ::1 at 2025-12-09 15:42:08 -0500
+Processing by NotesController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"AI Alignment Breakthrough ", "content"=>"SECTION 1: The Synthesis\r\n\r\nReading [[Wittgenstein on Meaning]] just now...\r\n\r\nWait. If meaning is use in context, then:\r\n=> AI alignment can't be solved by specification alone\r\n=> Values ARE context-dependent, like meaning\r\n<=> We need AI that learns context, not just rules\r\n"}, "tag_ids"=>["1"], "commit"=>"CREATE NOTE"}
+  [1m[36mTRANSACTION (193.4ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mNote Create (393.1ms)[0m  [1m[32mINSERT INTO "notes" ("title", "content", "vector_clock", "sequence_number", "user_id", "deleted_at", "created_at", "updated_at") VALUES ('AI Alignment Breakthrough ', 'SECTION 1: The Synthesis
+
+Reading [[Wittgenstein on Meaning]] just now...
+
+Wait. If meaning is use in context, then:
+=> AI alignment can''t be solved by specification alone
+=> Values ARE context-dependent, like meaning
+<=> We need AI that learns context, not just rules
+', NULL, NULL, NULL, NULL, '2025-12-09 20:42:08.046418', '2025-12-09 20:42:08.046418') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Pluck (97.1ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:69:in `event_evidence'
+  [1m[36mNote Pluck (78.0ms)[0m  [1m[34mSELECT "notes"."id" FROM "notes" INNER JOIN "causal_links" ON "notes"."id" = "causal_links"."cause_note_id" WHERE "causal_links"."effect_note_id" = 5 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:71:in `event_evidence'
+  [1m[36mNote Update (219.0ms)[0m  [1m[33mUPDATE "notes" SET "sequence_number" = 345746 WHERE "notes"."id" = 5 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/concerns/veps_eventable.rb:36:in `submit_veps_event'
+VEPS event submitted: note_created - Sequence: 345746
+  [1m[36mPgSearch::Document Load (306.0ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 5 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mPgSearch::Document Create (296.4ms)[0m  [1m[32mINSERT INTO "pg_search_documents" ("content", "searchable_type", "searchable_id", "created_at", "updated_at") VALUES ('AI Alignment Breakthrough  SECTION 1: The Synthesis
+
+Reading [[Wittgenstein on Meaning]] just now...
+
+Wait. If meaning is use in context, then:
+=> AI alignment can''t be solved by specification alone
+=> Values ARE context-dependent, like meaning
+<=> We need AI that learns context, not just rules
+', 'Note', 5, '2025-12-09 20:42:09.167944', '2025-12-09 20:42:09.167944') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mNoteLink Load (296.4ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 5 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (75.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mNoteLink Load (213.6ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 5 AND "note_links"."target_note_id" = 4 AND "note_links"."link_type" = 'references' LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (245.6ms)[0m  [1m[35mSAVEPOINT active_record_1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNote Load (280.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNote Load (267.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNoteLink Exists? (303.8ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."source_note_id" = 5 AND "note_links"."target_note_id" = 4 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNoteLink Create (305.0ms)[0m  [1m[32mINSERT INTO "note_links" ("source_note_id", "target_note_id", "link_type", "created_at", "updated_at") VALUES (5, 4, 'references', '2025-12-09 20:42:11.011574', '2025-12-09 20:42:11.011574') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (256.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (40.5ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:22:in `create'
+  [1m[36mTag Load (298.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (51.5ms)[0m  [1m[35mBEGIN /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Exists? (302.9ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 5 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mNoteTag Create (198.1ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (5, 1, '2025-12-09 20:42:12.237239', '2025-12-09 20:42:12.237239') RETURNING "id" /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+  [1m[36mTRANSACTION (97.7ms)[0m  [1m[35mCOMMIT /*action='create',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:26:in `block in create'
+Redirected to http://localhost:3000/notes/5
+↳ app/controllers/notes_controller.rb:30:in `create'
+Completed 302 Found in 4499ms (ActiveRecord: 4814.0ms (16 queries, 0 cached) | GC: 76.3ms)
+
+
+Started GET "/notes/5" for ::1 at 2025-12-09 15:42:12 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mNote Load (280.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (39.3ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (253.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (302.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (168.9ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (26.2ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mNote Load (99.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:47
+  [1m[36mCACHE NoteLink Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (176.5ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 180.3ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.2ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 184.5ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1107.5ms | GC: 0.8ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1110.9ms | GC: 1.4ms)
+Completed 200 OK in 1397ms (Views: 46.3ms | ActiveRecord: 1346.0ms (9 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:42:20 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (71.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (431.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (163.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (499.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (97.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (419.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (65.8ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (110.1ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (305.9ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (302.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (303.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (298.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  Rendered notes/index.html.erb within layouts/application (Duration: 3153.8ms | GC: 2.5ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3159.4ms | GC: 2.5ms)
+Completed 200 OK in 3163ms (Views: 91.7ms | ActiveRecord: 3068.5ms (12 queries, 0 cached) | GC: 2.5ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:42:50 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (19.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (314.7ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (296.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (305.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (19.9ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (50.7ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 55.5ms | GC: 1.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 59.5ms | GC: 1.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1018.9ms | GC: 3.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1023.2ms | GC: 3.0ms)
+Completed 200 OK in 1046ms (Views: 37.5ms | ActiveRecord: 1005.5ms (7 queries, 0 cached) | GC: 3.0ms)
+
+
+Started GET "/notes/3/edit" for ::1 at 2025-12-09 15:42:59 -0500
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (262.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  [1m[36mTag Exists? (393.3ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (99.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  [1m[36mTag Pluck (97.4ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:33
+  Rendered notes/_form.html.erb (Duration: 608.1ms | GC: 0.8ms)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 609.7ms | GC: 1.1ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 614.3ms | GC: 1.1ms)
+Completed 200 OK in 888ms (Views: 25.2ms | ActiveRecord: 852.4ms (4 queries, 0 cached) | GC: 1.1ms)
+
+
+Started PATCH "/notes/3" for ::1 at 2025-12-09 15:43:33 -0500
+Processing by NotesController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"AI Safety Problem", "content"=>"Current AI alignment approaches assume we can specify human values.\r\n\r\nBut what if the problem isn't specification?\r\nWhat if it's that values emerge from context?\r\n\r\n(0.1) - the unspecified margin: cultural context\r\n\r\nhttps://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language\r\n\r\n"}, "tag_ids"=>["1"], "commit"=>"UPDATE NOTE", "id"=>"3"}
+  [1m[36mNote Load (168.5ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (303.0ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mNote Update (932.1ms)[0m  [1m[33mUPDATE "notes" SET "content" = 'Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context
+
+https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language
+
+', "updated_at" = '2025-12-09 20:43:33.951980' WHERE "notes"."id" = 3 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Load (59.6ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 3 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Update (218.5ms)[0m  [1m[33mUPDATE "pg_search_documents" SET "content" = 'AI Safety Problem Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context
+
+https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language
+
+', "updated_at" = '2025-12-09 20:43:34.957739' WHERE "pg_search_documents"."id" = 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mTRANSACTION (302.1ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mTag Load (299.8ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mNoteTag Delete All (46.7ms)[0m  [1m[31mDELETE FROM "note_tags" WHERE "note_tags"."note_id" = 3 AND "note_tags"."tag_id" = 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mTag Load (27.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (215.6ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Exists? (525.1ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 3 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Create (299.7ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (3, 1, '2025-12-09 20:43:36.411299', '2025-12-09 20:43:36.411299') RETURNING "id" /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (304.3ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+Redirected to http://localhost:3000/notes/3
+↳ app/controllers/notes_controller.rb:51:in `update'
+Completed 302 Found in 3247ms (ActiveRecord: 3701.7ms (9 queries, 0 cached) | GC: 3.9ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:43:37 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (282.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (112.8ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (182.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (280.6ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (324.8ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (383.3ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 387.3ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 391.3ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1317.8ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1321.2ms | GC: 0.0ms)
+Completed 200 OK in 1610ms (Views: 38.6ms | ActiveRecord: 1566.4ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/notes/3/edit" for ::1 at 2025-12-09 15:43:53 -0500
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (32.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  [1m[36mTag Exists? (243.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (36.3ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  [1m[36mTag Pluck (76.3ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:33
+  Rendered notes/_form.html.erb (Duration: 371.9ms | GC: 0.0ms)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 372.6ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 374.0ms | GC: 0.0ms)
+Completed 200 OK in 411ms (Views: 19.2ms | ActiveRecord: 387.9ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/notes/3" for ::1 at 2025-12-09 15:44:39 -0500
+Processing by NotesController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"AI Safety Problem", "content"=>"Current AI alignment approaches assume we can specify human values.\r\n\r\nBut what if the problem isn't specification?\r\nWhat if it's that values emerge from context?\r\n\r\n(0.1) - the unspecified margin: cultural context\r\n\r\n[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language\r\n\r\n"}, "tag_ids"=>["1"], "commit"=>"UPDATE NOTE", "id"=>"3"}
+  [1m[36mNote Load (94.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (299.3ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mNote Update (398.0ms)[0m  [1m[33mUPDATE "notes" SET "content" = 'Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context
+
+[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language
+
+', "updated_at" = '2025-12-09 20:44:40.002893' WHERE "notes"."id" = 3 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Load (98.7ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 3 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Update (97.5ms)[0m  [1m[33mUPDATE "pg_search_documents" SET "content" = 'AI Safety Problem Current AI alignment approaches assume we can specify human values.
+
+But what if the problem isn''t specification?
+What if it''s that values emerge from context?
+
+(0.1) - the unspecified margin: cultural context
+
+[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language
+
+', "updated_at" = '2025-12-09 20:44:40.512880' WHERE "pg_search_documents"."id" = 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mNoteLink Load (126.0ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 3 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (170.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mTRANSACTION (304.1ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mTag Load (302.3ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mNoteTag Delete All (101.7ms)[0m  [1m[31mDELETE FROM "note_tags" WHERE "note_tags"."note_id" = 3 AND "note_tags"."tag_id" = 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mTag Load (30.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (24.6ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Exists? (159.4ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 3 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Create (291.4ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (3, 1, '2025-12-09 20:44:41.853191', '2025-12-09 20:44:41.853191') RETURNING "id" /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (404.2ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+Redirected to http://localhost:3000/notes/3
+↳ app/controllers/notes_controller.rb:51:in `update'
+Completed 302 Found in 2658ms (ActiveRecord: 2902.5ms (11 queries, 0 cached) | GC: 10.7ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:44:42 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (34.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (32.2ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (25.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (74.6ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (303.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (240.9ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (358.8ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 364.9ms | GC: 2.2ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.8ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 368.6ms | GC: 2.2ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1071.0ms | GC: 4.1ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1075.4ms | GC: 4.1ms)
+Completed 200 OK in 1114ms (Views: 41.7ms | ActiveRecord: 1068.9ms (8 queries, 0 cached) | GC: 4.1ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:44:55 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (26.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (291.7ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (65.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (182.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (47.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (300.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (301.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (298.6ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (304.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (300.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (205.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (307.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  Rendered notes/index.html.erb within layouts/application (Duration: 2695.2ms | GC: 2.1ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2701.7ms | GC: 2.1ms)
+Completed 200 OK in 2704ms (Views: 72.0ms | ActiveRecord: 2630.6ms (12 queries, 0 cached) | GC: 2.1ms)
+
+
+Started GET "/notes/4" for ::1 at 2025-12-09 15:45:03 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (26.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (254.6ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mNoteLink Count (174.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:18
+  [1m[36mTag Exists? (120.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (299.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (41.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mNoteLink Load (260.0ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:60
+  [1m[36mNote Load (151.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:61
+  [1m[36mAttachment Exists? (144.1ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 148.1ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 151.3ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1492.1ms | GC: 1.7ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1494.7ms | GC: 1.7ms)
+Completed 200 OK in 1526ms (Views: 50.1ms | ActiveRecord: 1472.2ms (10 queries, 0 cached) | GC: 2.2ms)
+
+
+Started GET "/notes/4/edit" for ::1 at 2025-12-09 15:45:12 -0500
+Processing by NotesController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (188.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/edit.html.erb within layouts/application
+  [1m[36mTag Exists? (295.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" LIMIT 1 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:27
+  [1m[36mTag Load (308.8ms)[0m  [1m[34mSELECT "tags".* FROM "tags" /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:31
+  [1m[36mTag Pluck (300.3ms)[0m  [1m[34mSELECT "tags"."id" FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='edit',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/_form.html.erb:33
+  Rendered notes/_form.html.erb (Duration: 921.6ms | GC: 0.9ms)
+  Rendered notes/edit.html.erb within layouts/application (Duration: 922.8ms | GC: 0.9ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 926.5ms | GC: 0.9ms)
+Completed 200 OK in 1120ms (Views: 23.9ms | ActiveRecord: 1092.1ms (4 queries, 0 cached) | GC: 0.9ms)
+
+
+Started PATCH "/notes/4" for ::1 at 2025-12-09 15:45:24 -0500
+Processing by NotesController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "note"=>{"title"=>"Wittgenstein on Meaning", "content"=>"\"Meaning is use in context\"\r\n\r\nLanguage games :: cultural practices :: embedded knowledge\r\n\r\nThe meaning of a word is its use in the language.\r\nCan't extract meaning from context.\r\n\r\n[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language"}, "tag_ids"=>["1"], "commit"=>"UPDATE NOTE", "id"=>"4"}
+  [1m[36mNote Load (121.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (304.8ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mNote Update (403.8ms)[0m  [1m[33mUPDATE "notes" SET "content" = '"Meaning is use in context"
+
+Language games :: cultural practices :: embedded knowledge
+
+The meaning of a word is its use in the language.
+Can''t extract meaning from context.
+
+[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language', "updated_at" = '2025-12-09 20:45:24.544659' WHERE "notes"."id" = 4 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Load (185.4ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 4 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mPgSearch::Document Update (267.9ms)[0m  [1m[33mUPDATE "pg_search_documents" SET "content" = 'Wittgenstein on Meaning "Meaning is use in context"
+
+Language games :: cultural practices :: embedded knowledge
+
+The meaning of a word is its use in the language.
+Can''t extract meaning from context.
+
+[[Wittgenstein_on_Rules_and_Private_Language]] https://en.wikipedia.org/wiki/Wittgenstein_on_Rules_and_Private_Language', "updated_at" = '2025-12-09 20:45:25.148749' WHERE "pg_search_documents"."id" = 2 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mNoteLink Load (37.2ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 4 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (407.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mTRANSACTION (303.7ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:42:in `update'
+  [1m[36mTag Load (200.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mNoteTag Delete All (305.9ms)[0m  [1m[31mDELETE FROM "note_tags" WHERE "note_tags"."note_id" = 4 AND "note_tags"."tag_id" = 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:44:in `update'
+  [1m[36mTag Load (25.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" WHERE "tags"."id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (102.5ms)[0m  [1m[35mBEGIN /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Exists? (128.2ms)[0m  [1m[34mSELECT 1 AS one FROM "note_tags" WHERE "note_tags"."note_id" = 4 AND "note_tags"."tag_id" = 1 LIMIT 1 /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mNoteTag Create (179.6ms)[0m  [1m[32mINSERT INTO "note_tags" ("note_id", "tag_id", "created_at", "updated_at") VALUES (4, 1, '2025-12-09 20:45:26.863384', '2025-12-09 20:45:26.863384') RETURNING "id" /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+  [1m[36mTRANSACTION (287.5ms)[0m  [1m[35mCOMMIT /*action='update',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:47:in `block in update'
+Redirected to http://localhost:3000/notes/4
+↳ app/controllers/notes_controller.rb:51:in `update'
+Completed 302 Found in 2925ms (ActiveRecord: 3261.2ms (11 queries, 0 cached) | GC: 1.8ms)
+
+
+Started GET "/notes/4" for ::1 at 2025-12-09 15:45:27 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (550.9ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (26.4ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mNoteLink Count (283.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:18
+  [1m[36mTag Exists? (169.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (122.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (302.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (303.3ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mNoteLink Load (26.9ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:60
+  [1m[36mNote Load (271.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:61
+  [1m[36mAttachment Exists? (297.9ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 301.9ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.6ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 305.4ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1851.4ms | GC: 1.7ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1855.0ms | GC: 1.7ms)
+Completed 200 OK in 2412ms (Views: 53.1ms | ActiveRecord: 2354.3ms (11 queries, 0 cached) | GC: 1.7ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:45:56 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (70.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (301.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (303.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (63.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (27.6ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (201.1ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (306.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (298.3ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (305.6ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (303.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (91.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (172.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  Rendered notes/index.html.erb within layouts/application (Duration: 2501.8ms | GC: 1.4ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2507.1ms | GC: 2.0ms)
+Completed 200 OK in 2509ms (Views: 63.7ms | ActiveRecord: 2444.4ms (12 queries, 0 cached) | GC: 2.0ms)
+
+
+Started GET "/notes/5" for ::1 at 2025-12-09 15:46:28 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mNote Load (139.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (199.9ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (92.6ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (249.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (270.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (82.2ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mNote Load (299.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:47
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (300.7ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 304.6ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.9ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 308.7ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1536.4ms | GC: 1.4ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1540.9ms | GC: 1.4ms)
+Completed 200 OK in 1687ms (Views: 47.6ms | ActiveRecord: 1634.2ms (9 queries, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:46:54 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (110.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (62.5ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (124.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (102.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (300.5ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (303.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (228.9ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 232.4ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 235.8ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1159.8ms | GC: 0.9ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1163.9ms | GC: 0.9ms)
+Completed 200 OK in 1280ms (Views: 43.6ms | ActiveRecord: 1231.6ms (8 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/notes/4" for ::1 at 2025-12-09 15:47:00 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (41.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (86.3ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mNoteLink Count (304.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:18
+  [1m[36mTag Exists? (296.1ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (302.9ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (302.8ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (304.9ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mNoteLink Load (85.8ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:60
+  [1m[36mNote Load (106.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:61
+  [1m[36mAttachment Exists? (405.9ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 409.7ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 416.1ms | GC: 2.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 2247.7ms | GC: 8.8ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2250.7ms | GC: 8.8ms)
+Completed 200 OK in 2297ms (Views: 56.0ms | ActiveRecord: 2237.1ms (11 queries, 0 cached) | GC: 8.8ms)
+
+
+Started GET "/notes/5" for ::1 at 2025-12-09 15:47:08 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mNote Load (430.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (25.6ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (300.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (36.3ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (263.5ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (300.6ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mNote Load (204.5ms)[0m  [1m[34mSELECT "notes".* FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:47
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (92.2ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 96.5ms | GC: 0.7ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 100.2ms | GC: 0.7ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 1264.7ms | GC: 1.5ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1268.3ms | GC: 1.5ms)
+Completed 200 OK in 1706ms (Views: 46.8ms | ActiveRecord: 1652.6ms (9 queries, 0 cached) | GC: 3.3ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:48:22 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (41.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (406.1ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (204.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (387.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (520.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (83.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (108.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (32.9ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (22.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (24.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (21.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (277.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  Rendered notes/index.html.erb within layouts/application (Duration: 2194.9ms | GC: 1.6ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2201.7ms | GC: 2.5ms)
+Completed 200 OK in 2204ms (Views: 73.9ms | ActiveRecord: 2128.7ms (12 queries, 0 cached) | GC: 2.5ms)
+
+
+Started GET "/notes/1" for ::1 at 2025-12-09 15:58:22 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mNote Load (2187.7ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 1 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (25.8ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 1 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (27.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 1 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mNote Exists? (23.6ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 1 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 1 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (26.0ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 1 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 29.8ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.3ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 34.0ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 158.4ms | GC: 0.3ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 161.6ms | GC: 0.3ms)
+Completed 200 OK in 2356ms (Views: 32.5ms | ActiveRecord: 3456.0ms (6 queries, 0 cached) | GC: 5.4ms)
+
+
+Started DELETE "/notes/1" for ::1 at 2025-12-09 15:58:26 -0500
+Processing by NotesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mNote Load (24.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 1 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (30.9ms)[0m  [1m[35mBEGIN /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNote Update (63.1ms)[0m  [1m[33mUPDATE "notes" SET "deleted_at" = '2025-12-09 20:58:26.151708', "updated_at" = '2025-12-09 20:58:26.153061' WHERE "notes"."id" = 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Load (28.5ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 1 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Create (23.7ms)[0m  [1m[32mINSERT INTO "pg_search_documents" ("content", "searchable_type", "searchable_id", "created_at", "updated_at") VALUES ('Test Note - init Just testing.', 'Note', 1, '2025-12-09 20:58:26.259462', '2025-12-09 20:58:26.259462') RETURNING "id" /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mTRANSACTION (45.7ms)[0m  [1m[35mCOMMIT /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+Redirected to http://localhost:3000/notes
+↳ app/controllers/notes_controller.rb:60:in `destroy'
+Completed 302 Found in 216ms (ActiveRecord: 215.9ms (4 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:58:26 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (25.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (273.4ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (327.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (299.3ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (303.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (302.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (301.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (301.8ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (65.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (236.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (189.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  Rendered notes/index.html.erb within layouts/application (Duration: 2673.6ms | GC: 1.3ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2678.4ms | GC: 1.3ms)
+Completed 200 OK in 2681ms (Views: 54.1ms | ActiveRecord: 2625.0ms (11 queries, 0 cached) | GC: 1.7ms)
+
+
+Started GET "/notes/2" for ::1 at 2025-12-09 15:58:30 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mNote Load (101.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 2 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (49.6ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 2 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (301.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (318.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 2 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Exists? (20.1ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 2 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 2 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (262.2ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 2 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 266.0ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 269.9ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 979.8ms | GC: 0.6ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 983.7ms | GC: 0.6ms)
+Completed 200 OK in 1090ms (Views: 34.2ms | ActiveRecord: 1052.1ms (7 queries, 0 cached) | GC: 0.9ms)
+
+
+Started DELETE "/notes/2" for ::1 at 2025-12-09 15:58:33 -0500
+Processing by NotesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"2"}
+  [1m[36mNote Load (231.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 2 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (303.7ms)[0m  [1m[35mBEGIN /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNote Update (586.6ms)[0m  [1m[33mUPDATE "notes" SET "deleted_at" = '2025-12-09 20:58:33.445639', "updated_at" = '2025-12-09 20:58:33.447417' WHERE "notes"."id" = 2 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Load (315.9ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 2 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Create (72.7ms)[0m  [1m[32mINSERT INTO "pg_search_documents" ("content", "searchable_type", "searchable_id", "created_at", "updated_at") VALUES ('Test - TODO - eat
+- sleep', 'Note', 2, '2025-12-09 20:58:34.364534', '2025-12-09 20:58:34.364534') RETURNING "id" /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mTRANSACTION (536.0ms)[0m  [1m[35mCOMMIT /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+Redirected to http://localhost:3000/notes
+↳ app/controllers/notes_controller.rb:60:in `destroy'
+Completed 302 Found in 1774ms (ActiveRecord: 2046.0ms (4 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:58:34 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (89.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (26.8ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (159.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (150.7ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (453.5ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (30.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (263.8ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (300.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (307.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  Rendered notes/index.html.erb within layouts/application (Duration: 1826.3ms | GC: 2.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1831.1ms | GC: 2.0ms)
+Completed 200 OK in 1834ms (Views: 50.7ms | ActiveRecord: 1781.3ms (9 queries, 0 cached) | GC: 2.4ms)
+
+
+Started GET "/notes/5" for ::1 at 2025-12-09 15:58:41 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mNote Load (333.7ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (514.1ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (42.5ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (23.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (62.6ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (77.0ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mNote Load (29.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 5 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:47
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 5 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (148.3ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 151.2ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 155.2ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 918.9ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 923.1ms | GC: 0.0ms)
+Completed 200 OK in 1267ms (Views: 29.1ms | ActiveRecord: 1230.3ms (9 queries, 0 cached) | GC: 0.9ms)
+
+
+Started DELETE "/notes/5" for ::1 at 2025-12-09 15:58:44 -0500
+Processing by NotesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"5"}
+  [1m[36mNote Load (87.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (82.1ms)[0m  [1m[35mBEGIN /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNote Update (586.1ms)[0m  [1m[33mUPDATE "notes" SET "deleted_at" = '2025-12-09 20:58:44.507318', "updated_at" = '2025-12-09 20:58:44.508250' WHERE "notes"."id" = 5 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Load (322.8ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 5 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNoteLink Load (62.9ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 5 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNoteLink Destroy (235.7ms)[0m  [1m[31mDELETE FROM "note_links" WHERE "note_links"."id" = 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (216.0ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein on meaning') LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mNoteLink Load (80.3ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 5 AND "note_links"."target_note_id" = 4 AND "note_links"."link_type" = 'references' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (295.4ms)[0m  [1m[35mSAVEPOINT active_record_1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNote Load (398.1ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNote Load (94.5ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNoteLink Exists? (97.2ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."source_note_id" = 5 AND "note_links"."target_note_id" = 4 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mNoteLink Create (249.0ms)[0m  [1m[32mINSERT INTO "note_links" ("source_note_id", "target_note_id", "link_type", "created_at", "updated_at") VALUES (5, 4, 'references', '2025-12-09 20:58:46.660257', '2025-12-09 20:58:46.660257') RETURNING "id" /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (45.8ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:100:in `block in create_note_links'
+  [1m[36mTRANSACTION (40.2ms)[0m  [1m[35mCOMMIT /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+Redirected to http://localhost:3000/notes
+↳ app/controllers/notes_controller.rb:60:in `destroy'
+Completed 302 Found in 2591ms (ActiveRecord: 2892.9ms (11 queries, 0 cached) | GC: 8.5ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:58:47 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (490.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (60.8ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (302.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (299.4ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (20.9ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  [1m[36mTag Exists? (170.0ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (98.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  Rendered notes/index.html.erb within layouts/application (Duration: 1479.7ms | GC: 3.4ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1484.7ms | GC: 3.4ms)
+Completed 200 OK in 1487ms (Views: 44.0ms | ActiveRecord: 1441.5ms (7 queries, 0 cached) | GC: 3.4ms)
+
+
+Started GET "/notes/3" for ::1 at 2025-12-09 15:58:50 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mNote Load (118.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (85.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mTag Exists? (169.3ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (26.6ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 3 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (26.2ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (35.5ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 3 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mAttachment Exists? (23.5ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 3 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 27.5ms | GC: 0.9ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 29.3ms | GC: 0.9ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 399.3ms | GC: 1.4ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 400.5ms | GC: 1.4ms)
+Completed 200 OK in 522ms (Views: 35.0ms | ActiveRecord: 484.3ms (8 queries, 0 cached) | GC: 1.4ms)
+
+
+Started DELETE "/notes/3" for ::1 at 2025-12-09 15:58:52 -0500
+Processing by NotesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"3"}
+  [1m[36mNote Load (172.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 3 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (29.0ms)[0m  [1m[35mBEGIN /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNote Update (60.5ms)[0m  [1m[33mUPDATE "notes" SET "deleted_at" = '2025-12-09 20:58:53.056421', "updated_at" = '2025-12-09 20:58:53.057724' WHERE "notes"."id" = 3 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Load (29.9ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 3 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNoteLink Load (26.5ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 3 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (29.7ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mTRANSACTION (159.2ms)[0m  [1m[35mCOMMIT /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+Redirected to http://localhost:3000/notes
+↳ app/controllers/notes_controller.rb:60:in `destroy'
+Completed 302 Found in 502ms (ActiveRecord: 507.0ms (5 queries, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:58:53 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (26.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (25.7ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  [1m[36mNote Load (25.7ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL ORDER BY "notes"."updated_at" DESC LIMIT 25 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:21
+  [1m[36mTag Exists? (24.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:26
+  [1m[36mTag Load (31.8ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 ORDER BY "tags"."id" ASC LIMIT 3 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:28
+  Rendered notes/index.html.erb within layouts/application (Duration: 149.7ms | GC: 0.4ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 156.4ms | GC: 0.4ms)
+Completed 200 OK in 159ms (Views: 23.3ms | ActiveRecord: 134.1ms (5 queries, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/notes/4" for ::1 at 2025-12-09 15:58:55 -0500
+Processing by NotesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mNote Load (27.7ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  Rendering layout layouts/application.html.erb
+  Rendering notes/show.html.erb within layouts/application
+  [1m[36mNoteLink Exists? (33.3ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:17
+  [1m[36mNoteLink Count (25.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:18
+  [1m[36mTag Exists? (25.2ms)[0m  [1m[34mSELECT 1 AS one FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:28
+  [1m[36mTag Load (29.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "note_tags" ON "tags"."id" = "note_tags"."tag_id" WHERE "note_tags"."note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:30
+  [1m[36mNote Load (24.9ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:111:in `block in convert_wiki_links'
+  [1m[36mNote Exists? (147.9ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" INNER JOIN "note_links" ON "notes"."id" = "note_links"."target_note_id" WHERE "note_links"."source_note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:43
+  [1m[36mCACHE NoteLink Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "note_links" WHERE "note_links"."target_note_id" = 4 LIMIT 1[0m
+  ↳ app/views/notes/show.html.erb:56
+  [1m[36mNoteLink Load (19.2ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."target_note_id" = 4 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:60
+  [1m[36mNote Load (23.0ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 5 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/show.html.erb:61
+  [1m[36mAttachment Exists? (29.4ms)[0m  [1m[34mSELECT 1 AS one FROM "attachments" WHERE "attachments"."note_id" = 4 LIMIT 1 /*action='show',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/attachments/_list.html.erb:2
+  Rendered attachments/_list.html.erb (Duration: 33.9ms | GC: 0.0ms)
+  Rendered attachments/_upload_form.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered notes/_attachments_section.html.erb (Duration: 37.2ms | GC: 0.0ms)
+  Rendered notes/show.html.erb within layouts/application (Duration: 391.3ms | GC: 1.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 394.8ms | GC: 1.0ms)
+Completed 200 OK in 426ms (Views: 37.9ms | ActiveRecord: 385.2ms (11 queries, 0 cached) | GC: 1.0ms)
+
+
+Started DELETE "/notes/4" for ::1 at 2025-12-09 15:58:57 -0500
+Processing by NotesController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"4"}
+  [1m[36mNote Load (89.4ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."id" = 4 LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/controllers/notes_controller.rb:71:in `set_note'
+  [1m[36mTRANSACTION (21.3ms)[0m  [1m[35mBEGIN /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNote Update (44.1ms)[0m  [1m[33mUPDATE "notes" SET "deleted_at" = '2025-12-09 20:58:57.194657', "updated_at" = '2025-12-09 20:58:57.196025' WHERE "notes"."id" = 4 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mPgSearch::Document Load (25.8ms)[0m  [1m[34mSELECT "pg_search_documents".* FROM "pg_search_documents" WHERE "pg_search_documents"."searchable_id" = 4 AND "pg_search_documents"."searchable_type" = 'Note' LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+  [1m[36mNoteLink Load (28.3ms)[0m  [1m[34mSELECT "note_links".* FROM "note_links" WHERE "note_links"."source_note_id" = 4 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:94:in `create_note_links'
+  [1m[36mNote Load (174.3ms)[0m  [1m[34mSELECT "notes".* FROM "notes" WHERE "notes"."deleted_at" IS NULL AND (LOWER(title) = 'wittgenstein_on_rules_and_private_language') LIMIT 1 /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:97:in `block in create_note_links'
+  [1m[36mTRANSACTION (29.7ms)[0m  [1m[35mCOMMIT /*action='destroy',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/models/note.rb:40:in `soft_delete'
+Redirected to http://localhost:3000/notes
+↳ app/controllers/notes_controller.rb:60:in `destroy'
+Completed 302 Found in 415ms (ActiveRecord: 412.8ms (5 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/notes" for ::1 at 2025-12-09 15:58:57 -0500
+Processing by NotesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering notes/index.html.erb within layouts/application
+  [1m[36mNote Count (21.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "notes" WHERE "notes"."deleted_at" IS NULL /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:6
+  [1m[36mNote Exists? (33.7ms)[0m  [1m[34mSELECT 1 AS one FROM "notes" WHERE "notes"."deleted_at" IS NULL LIMIT 1 OFFSET 0 /*action='index',application='SecondBrainRails',controller='notes'*/[0m
+  ↳ app/views/notes/index.html.erb:11
+  Rendered notes/index.html.erb within layouts/application (Duration: 59.1ms | GC: 0.0ms)
+  Rendered shared/_keyboard_shortcuts.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 62.0ms | GC: 0.0ms)
+Completed 200 OK in 65ms (Views: 7.8ms | ActiveRecord: 55.6ms (2 queries, 0 cached) | GC: 0.5ms)
+
+
+- Gracefully stopping, waiting for requests to finish
+Exiting

@@ -1,0 +1,22 @@
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/digest-3.2.1/ext/digest/sha2
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for CommonCrypto/CommonDigest.h... no
+checking for u_int8_t... yes
+checking for sys/cdefs.h... yes
+creating Makefile
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/digest-3.2.1/ext/digest/sha2
+make DESTDIR\= sitearchdir\=./.gem.20251209-27425-z32htg sitelibdir\=./.gem.20251209-27425-z32htg clean
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/digest-3.2.1/ext/digest/sha2
+make DESTDIR\= sitearchdir\=./.gem.20251209-27425-z32htg sitelibdir\=./.gem.20251209-27425-z32htg
+compiling sha2.c
+compiling sha2init.c
+linking shared-object digest/sha2.so
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/digest-3.2.1/ext/digest/sha2
+make DESTDIR\= sitearchdir\=./.gem.20251209-27425-z32htg sitelibdir\=./.gem.20251209-27425-z32htg install
+/usr/bin/install -c -m 0755 sha2.so ./.gem.20251209-27425-z32htg/digest
+
+current directory: /home/asonibar/Code/second-brain-app/second-brain-rails/vendor/bundle/ruby/3.2.0/gems/digest-3.2.1/ext/digest/sha2
+make DESTDIR\= sitearchdir\=./.gem.20251209-27425-z32htg sitelibdir\=./.gem.20251209-27425-z32htg clean

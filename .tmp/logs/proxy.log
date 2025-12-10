@@ -1,0 +1,18 @@
+2025/12/09 15:30:23 This is the Cloud SQL Proxy v1. It is no longer receiving active feature development. For the latest features and improvements, migrate to the v2 version of the Cloud SQL Proxy. For details, see: https://github.com/GoogleCloudPlatform/cloud-sql-proxy/blob/main/migration-guide.md
+2025/12/09 15:30:23 current FDs rlimit set to 1048575, wanted limit is 8500. Nothing to do here.
+2025/12/09 15:30:25 Using gcloud's active project: [second-brain-app-ore]
+2025/12/09 15:30:27 Listening on /tmp/cloudsql/second-brain-app-ore:us-central1:second-brain-db/.s.PGSQL.5432 for second-brain-app-ore:us-central1:second-brain-db
+2025/12/09 15:30:27 Ready for new connections
+2025/12/09 15:30:28 Generated RSA key in 176.578415ms
+2025/12/09 15:30:39 New connection for "second-brain-app-ore:us-central1:second-brain-db"
+2025/12/09 15:30:39 refreshing ephemeral certificate for instance second-brain-app-ore:us-central1:second-brain-db
+2025/12/09 15:30:39 Scheduling refresh of ephemeral certificate in 54m59s
+2025/12/09 15:30:40 Client closed local connection on /tmp/cloudsql/second-brain-app-ore:us-central1:second-brain-db/.s.PGSQL.5432
+2025/12/09 15:30:40 New connection for "second-brain-app-ore:us-central1:second-brain-db"
+2025/12/09 15:53:40 Client closed local connection on /tmp/cloudsql/second-brain-app-ore:us-central1:second-brain-db/.s.PGSQL.5432
+2025/12/09 15:58:22 New connection for "second-brain-app-ore:us-central1:second-brain-db"
+2025/12/09 16:04:00 Client closed local connection on /tmp/cloudsql/second-brain-app-ore:us-central1:second-brain-db/.s.PGSQL.5432
+2025/12/09 16:25:39 ephemeral certificate for instance second-brain-app-ore:us-central1:second-brain-db will expire soon, refreshing now.
+2025/12/09 16:25:39 refreshing ephemeral certificate for instance second-brain-app-ore:us-central1:second-brain-db
+2025/12/09 16:25:39 Scheduling refresh of ephemeral certificate in 54m59s
+2025/12/09 17:10:41 Received TERM signal. Waiting up to 0s before terminating.

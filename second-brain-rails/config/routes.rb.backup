@@ -1,0 +1,67 @@
+Rails.application.routes.draw do
+  root "home#index"
+  
+  get "search", to: "search#index"
+  
+  resources :notes do
+    member do
+      post :restore
+      get :time_travel, to: 'time_travel#index'
+      get :lineage, to: 'lineage#show'
+      post :view, to: 'notes#log_view'
+      get :sparks, to: 'sparks#show'
+      
+      # Time machine (event sourcing)
+      get :time_machine, to: 'time_machine#show'
+      get 'at_sequence/:sequence', to: 'time_machine#show', as: :at_sequence
+      
+      # Branches
+      get :branches, to: 'branches#index'
+      
+      # Priority proof
+      post :generate_proof, to: 'priority_proof#create'
+    end
+    
+    resources :attachments, only: [:create, :destroy]
+    resources :interactions, only: [:create]
+  end
+  
+  resources :tags, only: [:index, :create, :destroy]
+  
+  # Concept flow
+  get "concepts/:concept", to: "concept_flow#show", as: :concept_flow
+  
+  # Convergence analysis
+  get "convergence", to: "convergence#index"
+  get "convergence/breakthroughs", to: "convergence#breakthroughs"
+  
+  # Export
+  get "export/all", to: "exports#all"
+  
+  # Bulk operations
+  post "bulk/tag", to: "bulk_operations#tag"
+  post "bulk/delete", to: "bulk_operations#delete"
+  post "bulk/export", to: "bulk_operations#export"
+  
+  # API endpoints
+  namespace :api do
+    namespace :v1 do
+      resources :notes do
+        collection do
+          get :search
+        end
+      end
+    end
+  end
+  
+  get "up" => "rails/health#show", as: :rails_health_check
+end
+
+  # Cognitive Dyad - Semantic-Formal Bridge
+  resources :notes do
+    member do
+      get 'structure_suggestions'
+      post 'apply_structure'
+      get 'semantic_field'
+    end
+  end

@@ -1,0 +1,29 @@
+runtime: ruby32
+entrypoint: bundle exec rails server -p $PORT -e production
+
+env_variables:
+  CLOUD_SQL_CONNECTION_NAME: second-brain-app-ore:us-central1:second-brain-db
+  RAILS_ENV: production
+  SECRET_KEY_BASE: PLACEHOLDER_WILL_BE_SET_IN_SECRETS
+  RAILS_LOG_TO_STDOUT: true
+  RAILS_SERVE_STATIC_FILES: true
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 2
+  target_cpu_utilization: 0.65
+
+# Health check
+readiness_check:
+  path: "/up"
+  timeout_sec: 4
+  check_interval_sec: 5
+  failure_threshold: 2
+  success_threshold: 2
+
+liveness_check:
+  path: "/up"
+  timeout_sec: 4
+  check_interval_sec: 30
+  failure_threshold: 2
+  success_threshold: 2

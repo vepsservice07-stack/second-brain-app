@@ -1,0 +1,40 @@
+<div style="max-width: 900px;">
+  <div style="margin-bottom: 24px;">
+    <div style="font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">TAGS</div>
+    <div class="meta" style="margin-top: 4px;"><%= Tag.count %> TOTAL</div>
+  </div>
+
+  <div class="card" style="padding: 20px; margin-bottom: 24px;">
+    <%= form_with model: Tag.new, local: true, style: "display: flex; gap: 8px; align-items: end;" do |form| %>
+      <div style="flex: 1;">
+        <%= form.label :name, style: "display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; color: var(--text-secondary);" %>
+        <%= form.text_field :name, placeholder: "TAG NAME", style: "width: 100%;" %>
+      </div>
+      <div>
+        <%= form.label :color, style: "display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; color: var(--text-secondary);" %>
+        <%= form.color_field :color, value: "#4a9eff", style: "width: 80px; height: 36px; padding: 2px; cursor: pointer;" %>
+      </div>
+      <%= form.submit "CREATE", class: "btn-primary", style: "margin-top: 19px;" %>
+    <% end %>
+  </div>
+
+  <% if Tag.any? %>
+    <div style="display: grid; gap: 8px;">
+      <% Tag.all.each do |tag| %>
+        <div class="card" style="padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span class="tag-pill" style="background: <%= tag.color %>20; color: <%= tag.color %>; border-color: <%= tag.color %>; font-size: 12px;">
+              <%= tag.name %>
+            </span>
+            <span class="meta" style="margin-left: 12px;"><%= tag.notes.count %> notes</span>
+          </div>
+          <%= button_to "DELETE", tag_path(tag), method: :delete, data: { confirm: "Delete this tag?" }, class: "btn", style: "font-size: 10px; color: var(--margin-color); border-color: var(--margin-color);" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="card" style="padding: 40px; text-align: center;">
+      <div class="meta">NO TAGS</div>
+    </div>
+  <% end %>
+</div>

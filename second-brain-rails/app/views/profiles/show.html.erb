@@ -1,0 +1,224 @@
+<div class="container-wide">
+  <div class="mb-4">
+    <h1>Your Cognitive Profile</h1>
+    <p class="text-subtle">Understanding how you think</p>
+  </div>
+  
+  <!-- Quick Stats Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="card text-center" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%); color: white; border: none;">
+      <h2 style="color: white; margin-bottom: 0.5rem;">
+        <%= @insights[:productivity][:total_notes] %>
+      </h2>
+      <p style="color: rgba(255,255,255,0.9);">Notes Created</p>
+    </div>
+    
+    <div class="card text-center" style="background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%); color: white; border: none;">
+      <h2 style="color: white; margin-bottom: 0.5rem;">
+        <%= number_to_human(@insights[:productivity][:total_words]) %>
+      </h2>
+      <p style="color: rgba(255,255,255,0.9);">Words Written</p>
+    </div>
+    
+    <div class="card text-center" style="background: linear-gradient(135deg, var(--color-success) 0%, #8AB09E 100%); color: white; border: none;">
+      <h2 style="color: white; margin-bottom: 0.5rem;">
+        <%= @insights[:productivity][:current_streak] %>
+      </h2>
+      <p style="color: rgba(255,255,255,0.9);">Day Streak</p>
+    </div>
+    
+    <div class="card text-center">
+      <h2 style="color: var(--color-primary); margin-bottom: 0.5rem;">
+        <%= @insights[:productivity][:avg_note_length] %>
+      </h2>
+      <p class="text-subtle">Avg Words/Note</p>
+    </div>
+  </div>
+  
+  <!-- Thinking Style Analysis -->
+  <div class="card mb-4">
+    <h2 class="mb-3">🧠 Your Thinking Style</h2>
+    
+    <div style="margin-bottom: 2rem;">
+      <h3 style="color: var(--color-accent); margin-bottom: 1rem;">
+        Primary: <%= @insights[:thinking_style][:primary].to_s.titleize %>
+      </h3>
+      
+      <div style="display: grid; gap: 1rem;">
+        <% if @insights[:thinking_style][:distribution] %>
+          <% @insights[:thinking_style][:distribution].sort_by { |_, v| -v }.each do |style, percentage| %>
+            <div>
+              <div class="flex-between mb-1">
+                <span style="font-weight: 500;"><%= style.to_s.titleize %></span>
+                <span class="text-subtle"><%= percentage %>%</span>
+              </div>
+              <div style="background: var(--color-bg); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div style="background: var(--color-primary); height: 100%; width: <%= percentage %>%; transition: width 0.6s var(--ease-smooth);"></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    
+    <div style="padding: 1.5rem; background: rgba(91, 124, 153, 0.05); border-radius: 8px;">
+      <h4 class="mb-2">What this means:</h4>
+      <% case @insights[:thinking_style][:primary] %>
+      <% when :analytical %>
+        <p class="text-subtle">You break down complex problems logically. You value clarity, reason, and structured thinking.</p>
+      <% when :creative %>
+        <p class="text-subtle">You think in metaphors and stories. You make unexpected connections and see possibilities.</p>
+      <% when :reflective %>
+        <p class="text-subtle">You process through introspection. You understand yourself and learn from experience.</p>
+      <% when :practical %>
+        <p class="text-subtle">You focus on action and solutions. You turn ideas into concrete outcomes.</p>
+      <% else %>
+        <p class="text-subtle">You have a balanced thinking style, drawing from multiple approaches as needed.</p>
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- Peak Performance Times -->
+  <% if @insights[:peak_performance][:peak_hour] %>
+    <div class="card mb-4">
+      <h2 class="mb-3">⏰ Peak Performance</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div>
+          <h3 style="color: var(--color-accent); margin-bottom: 0.5rem;">
+            <%= @insights[:peak_performance][:peak_time_range] %>
+          </h3>
+          <p class="text-subtle">Your most productive time</p>
+          <p style="margin-top: 1rem; font-size: 2rem; color: var(--color-primary);">
+            <%= @insights[:peak_performance][:notes_at_peak] %> notes
+          </p>
+        </div>
+        
+        <div style="padding: 1.5rem; background: rgba(212, 165, 116, 0.1); border-radius: 8px; border-left: 3px solid var(--color-accent);">
+          <p style="font-style: italic; color: var(--color-text);">
+            <%= @insights[:peak_performance][:recommendation] %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- Writing Velocity -->
+  <% if @insights[:writing_velocity][:pace] %>
+    <div class="card mb-4">
+      <h2 class="mb-3">📊 Writing Pattern</h2>
+      
+      <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+        <div>
+          <div class="text-subtle mb-1">Average time between notes</div>
+          <h3 style="color: var(--color-primary);">
+            <%= @insights[:writing_velocity][:avg_hours_between_notes] %> hours
+          </h3>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px;">
+          <div class="text-subtle mb-1">Your pace</div>
+          <p style="font-size: 1.1rem; color: var(--color-text);">
+            <%= @insights[:writing_velocity][:pace].titleize %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- Content Evolution -->
+  <% if @insights[:content_evolution][:avg_length_change] %>
+    <div class="card mb-4">
+      <h2 class="mb-3">📈 Content Evolution</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+        <div>
+          <div class="text-subtle mb-1">Early notes averaged</div>
+          <h3 style="color: var(--color-text-subtle);">
+            <%= @insights[:content_evolution][:avg_length_change][:before] %> words
+          </h3>
+        </div>
+        
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 2rem; color: var(--color-accent);">→</span>
+        </div>
+        
+        <div>
+          <div class="text-subtle mb-1">Recent notes average</div>
+          <h3 style="color: var(--color-primary);">
+            <%= @insights[:content_evolution][:avg_length_change][:after] %> words
+          </h3>
+        </div>
+      </div>
+      
+      <% change = @insights[:content_evolution][:avg_length_change][:after] - @insights[:content_evolution][:avg_length_change][:before] %>
+      <div style="margin-top: 1.5rem; padding: 1rem; background: var(--color-bg); border-radius: 6px;">
+        <% if change > 0 %>
+          <p class="text-subtle">📈 Your notes are getting more detailed over time (+<%= change %> words)</p>
+        <% elsif change < 0 %>
+          <p class="text-subtle">📉 Your notes are becoming more concise (<%= change %> words)</p>
+        <% else %>
+          <p class="text-subtle">➡️ Your note length has remained consistent</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- Topic Cloud -->
+  <% if @insights[:topic_distribution][:common_themes].any? %>
+    <div class="card mb-4">
+      <h2 class="mb-3">💭 Common Themes</h2>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <% @insights[:topic_distribution][:common_themes].each do |theme| %>
+          <span style="padding: 0.5rem 1rem; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 20px; font-size: 0.9rem;">
+            <%= theme %>
+          </span>
+        <% end %>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <div>
+          <div class="text-subtle mb-1">Unique words used</div>
+          <h3 style="color: var(--color-primary);"><%= number_to_human(@insights[:topic_distribution][:unique_words]) %></h3>
+        </div>
+        
+        <div>
+          <div class="text-subtle mb-1">Vocabulary richness</div>
+          <h3 style="color: var(--color-accent);"><%= @insights[:topic_distribution][:vocabulary_richness] %>%</h3>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- Recent Notes -->
+  <div class="card">
+    <h2 class="mb-3">📝 Recent Notes</h2>
+    
+    <% if @recent_notes.any? %>
+      <div style="display: grid; gap: 1rem;">
+        <% @recent_notes.each do |note| %>
+          <%= link_to note, style: "text-decoration: none; display: block; padding: 1.5rem; background: var(--color-bg); border-radius: 8px; transition: all 0.3s var(--ease-smooth);" do %>
+            <h3 style="color: var(--color-text); margin-bottom: 0.5rem;"><%= note.title %></h3>
+            <p style="color: var(--color-text-subtle); margin-bottom: 0.5rem;"><%= truncate(note.content, length: 150) %></p>
+            <div class="flex gap-2 text-subtle" style="font-size: 0.85rem;">
+              <span><%= note.content.to_s.split.length %> words</span>
+              <span>•</span>
+              <span><%= time_ago_in_words(note.updated_at) %> ago</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-subtle text-center" style="padding: 2rem;">
+        No notes yet. <%= link_to "Create your first note", new_note_path, style: "color: var(--color-primary);" %>!
+      </p>
+    <% end %>
+  </div>
+  
+  <div class="mt-4">
+    <%= link_to notes_path, class: "btn btn-ghost" do %>
+      ← Back to Notes
+    <% end %>
+  </div>
+</div>

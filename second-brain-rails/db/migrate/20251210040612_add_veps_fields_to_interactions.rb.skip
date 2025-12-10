@@ -1,0 +1,7 @@
+class AddVepsFieldsToInteractions < ActiveRecord::Migration[8.1]
+  def change
+    add_column :interactions, :device_id, :string
+    add_column :interactions, :vector_clock, :json
+    add_column :interactions, :previous_hash, :string
+  end
+end
