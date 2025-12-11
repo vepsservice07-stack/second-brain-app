@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "notes#index"
-  resources :notes
-  resource :profile, only: [:show]
+  
+  namespace :api do
+    namespace :v1 do
+      post 'auth/login', to: 'auth#login'
+      delete 'auth/logout', to: 'auth#logout'
+      get 'auth/current_user', to: 'auth#current_user_info'
+      resources :notes
+    end
+  end
+  
   get "up" => "rails/health#show", as: :rails_health_check
 end
-  post 'notes/:id/receive_rhythm', to: 'notes#receive_rhythm'

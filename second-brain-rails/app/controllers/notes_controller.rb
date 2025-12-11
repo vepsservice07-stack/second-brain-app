@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_note, only: [:show, :edit, :update, :destroy, :generate_rhythm]
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
   
   def index
     @notes = current_user.notes.order(updated_at: :desc)

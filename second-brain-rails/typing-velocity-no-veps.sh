@@ -1,0 +1,331 @@
+#!/bin/bash
+set -e
+
+echo "======================================"
+echo "⚡ Adding Typing Velocity Detection"
+echo "No VEPS Required - Pure JavaScript"
+echo "======================================"
+echo ""
+
+cd ~/Code/second-brain-app/second-brain-rails
+
+# Update the new note form and edit form to detect typing
+cat > app/views/notes/_form.html.erb << 'HTML'
+<div class="form-wrapper" id="formWrapper">
+  <!-- Ambient mood indicator -->
+  <div id="typingMoodIndicator" class="typing-mood-indicator">
+    <span class="mood-icon">✍️</span>
+    <span class="mood-text">Writing...</span>
+  </div>
+  
+  <%= form_with(model: note, local: true, html: { id: 'noteForm' }) do |form| %>
+    <% if note.errors.any? %>
+      <div class="error-messages">
+        <h3><%= pluralize(note.errors.count, "error") %> prevented this note from being saved:</h3>
+        <ul>
+          <% note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-input", placeholder: "What's on your mind?" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :content, class: "form-label" %>
+      <%= form.text_area :content, 
+          class: "form-input form-textarea", 
+          rows: 15,
+          id: "noteContent",
+          placeholder: "Start typing... The app will sense your rhythm." %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", notes_path, class: "btn btn-ghost" %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    transition: all 1s ease;
+  }
+  
+  /* Typing Mood Indicator */
+  .typing-mood-indicator {
+    position: fixed;
+    top: 100px;
+    right: 2rem;
+    background: var(--color-bg-elevated);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+    transition: all 0.6s ease;
+    opacity: 0;
+  }
+  
+  .typing-mood-indicator.visible {
+    opacity: 1;
+  }
+  
+  .mood-icon {
+    font-size: 1.5rem;
+  }
+  
+  .mood-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+  
+  /* Flow State */
+  .typing-mood-indicator.flow {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border-color: var(--color-primary);
+    animation: flowPulse 2s ease-in-out infinite;
+  }
+  
+  .typing-mood-indicator.flow .mood-text {
+    color: white;
+  }
+  
+  @keyframes flowPulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(91, 124, 153, 0.3); }
+    50% { box-shadow: 0 8px 32px rgba(91, 124, 153, 0.5); }
+  }
+  
+  /* Contemplating State */
+  .typing-mood-indicator.contemplating {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    border-color: var(--color-accent);
+  }
+  
+  .typing-mood-indicator.contemplating .mood-text {
+    color: white;
+  }
+  
+  /* Refining State */
+  .typing-mood-indicator.refining {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-text-subtle);
+  }
+  
+  /* Form gets subtle ambient glow based on state */
+  .form-wrapper.flow {
+    filter: drop-shadow(0 0 40px rgba(91, 124, 153, 0.2));
+  }
+  
+  .form-wrapper.contemplating {
+    filter: drop-shadow(0 0 40px rgba(212, 165, 116, 0.2));
+  }
+  
+  @media (max-width: 768px) {
+    .typing-mood-indicator {
+      position: static;
+      margin-bottom: 1rem;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // Typing velocity tracker
+  class TypingVelocityTracker {
+    constructor(textarea) {
+      this.textarea = textarea;
+      this.keystrokes = [];
+      this.deletions = 0;
+      this.totalKeys = 0;
+      this.lastKeyTime = null;
+      this.currentState = 'writing';
+      this.pauseTimer = null;
+      
+      this.init();
+    }
+    
+    init() {
+      this.textarea.addEventListener('keydown', (e) => this.handleKeydown(e));
+      this.textarea.addEventListener('keyup', (e) => this.handleKeyup(e));
+    }
+    
+    handleKeydown(e) {
+      const now = Date.now();
+      
+      if (this.lastKeyTime) {
+        const interval = now - this.lastKeyTime;
+        this.keystrokes.push(interval);
+        
+        // Keep only last 20 keystrokes for calculation
+        if (this.keystrokes.length > 20) {
+          this.keystrokes.shift();
+        }
+      }
+      
+      this.lastKeyTime = now;
+      this.totalKeys++;
+      
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        this.deletions++;
+      }
+      
+      // Clear pause timer
+      clearTimeout(this.pauseTimer);
+      
+      // Analyze state
+      this.analyzeState();
+      
+      // Set new pause timer (3 seconds = contemplating)
+      this.pauseTimer = setTimeout(() => {
+        this.setState('contemplating');
+      }, 3000);
+    }
+    
+    handleKeyup(e) {
+      // Could add more sophisticated analysis here
+    }
+    
+    analyzeState() {
+      if (this.keystrokes.length < 5) {
+        this.setState('writing');
+        return;
+      }
+      
+      // Calculate average interval between keystrokes
+      const avgInterval = this.keystrokes.reduce((a, b) => a + b, 0) / this.keystrokes.length;
+      
+      // Calculate velocity (chars per second)
+      const velocity = 1000 / avgInterval;
+      
+      // Calculate deletion rate
+      const deletionRate = this.deletions / this.totalKeys;
+      
+      // Determine state
+      if (velocity > 4 && deletionRate < 0.15) {
+        // Fast typing, few deletions = FLOW
+        this.setState('flow');
+      } else if (deletionRate > 0.25) {
+        // Lots of deletions = REFINING
+        this.setState('refining');
+      } else if (avgInterval > 500) {
+        // Slow, deliberate typing = CONTEMPLATING
+        this.setState('contemplating');
+      } else {
+        // Normal writing
+        this.setState('writing');
+      }
+    }
+    
+    setState(state) {
+      if (this.currentState === state) return;
+      
+      this.currentState = state;
+      this.updateUI(state);
+      
+      console.log(`🎭 Writing state: ${state}`);
+    }
+    
+    updateUI(state) {
+      const indicator = document.getElementById('typingMoodIndicator');
+      const wrapper = document.getElementById('formWrapper');
+      const icon = indicator.querySelector('.mood-icon');
+      const text = indicator.querySelector('.mood-text');
+      
+      // Remove all state classes
+      indicator.classList.remove('flow', 'contemplating', 'refining');
+      wrapper.classList.remove('flow', 'contemplating', 'refining');
+      
+      // Show indicator
+      indicator.classList.add('visible');
+      
+      // Update based on state
+      switch(state) {
+        case 'flow':
+          indicator.classList.add('flow');
+          wrapper.classList.add('flow');
+          icon.textContent = '🌊';
+          text.textContent = 'In the flow';
+          break;
+          
+        case 'contemplating':
+          indicator.classList.add('contemplating');
+          wrapper.classList.add('contemplating');
+          icon.textContent = '🧘';
+          text.textContent = 'Contemplating';
+          break;
+          
+        case 'refining':
+          indicator.classList.add('refining');
+          wrapper.classList.add('refining');
+          icon.textContent = '✨';
+          text.textContent = 'Refining';
+          break;
+          
+        default:
+          icon.textContent = '✍️';
+          text.textContent = 'Writing';
+      }
+    }
+  }
+  
+  // Initialize when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('noteContent');
+    if (textarea) {
+      new TypingVelocityTracker(textarea);
+      console.log('⚡ Typing velocity detection active');
+    }
+  });
+  
+  // Also initialize on Turbo load
+  document.addEventListener('turbo:load', function() {
+    const textarea = document.getElementById('noteContent');
+    if (textarea) {
+      new TypingVelocityTracker(textarea);
+      console.log('⚡ Typing velocity detection active');
+    }
+  });
+</script>
+HTML
+
+echo "✓ Typing velocity form created"
+
+echo ""
+echo "======================================"
+echo "✅ Typing Velocity Detection Added!"
+echo "======================================"
+echo ""
+echo "Now when you create or edit a note:"
+echo ""
+echo "  🌊 FLOW STATE"
+echo "     • Typing fast (4+ chars/sec)"
+echo "     • Few deletions (<15%)"
+echo "     • Blue glowing indicator"
+echo ""
+echo "  🧘 CONTEMPLATING"
+echo "     • Long pauses (3+ seconds)"
+echo "     • Slow, deliberate typing"
+echo "     • Amber indicator"
+echo ""
+echo "  ✨ REFINING"
+echo "     • Lots of backspaces (25%+)"
+echo "     • Editing mode"
+echo "     • Neutral indicator"
+echo ""
+echo "NO VEPS NEEDED - Pure JavaScript!"
+echo ""
+echo "Try creating a note and typing quickly!"
+echo ""

@@ -1,0 +1,74 @@
+<div class="container">
+  <h1>🔗 VEPS Integration Status</h1>
+  
+  <div class="card mb-4">
+    <h2>Connection Status</h2>
+    
+    <div class="stat-row">
+      <span class="stat-label">VEPS API</span>
+      <span class="stat-value" style="color: <%= @veps_healthy ? 'var(--color-success)' : 'var(--color-error)' %>">
+        <%= @veps_healthy ? '✅ Healthy' : '❌ Unreachable' %>
+      </span>
+    </div>
+    
+    <div class="stat-row">
+      <span class="stat-label">Endpoint</span>
+      <span class="stat-value"><%= ENV['VEPS_API_URL'] %></span>
+    </div>
+    
+    <div class="stat-row">
+      <span class="stat-label">Total Events Submitted</span>
+      <span class="stat-value"><%= number_with_delimiter(@total_events) %></span>
+    </div>
+    
+    <div class="stat-row">
+      <span class="stat-label">Notes with Rhythm</span>
+      <span class="stat-value"><%= @notes_with_rhythm %></span>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Recent Events</h2>
+    
+    <% if @recent_events.any? %>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--color-border);">
+            <th style="padding: 0.75rem; text-align: left;">Sequence #</th>
+            <th style="padding: 0.75rem; text-align: left;">Event Type</th>
+            <th style="padding: 0.75rem; text-align: left;">BPM</th>
+            <th style="padding: 0.75rem; text-align: left;">Note</th>
+            <th style="padding: 0.75rem; text-align: left;">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_events.each do |event| %>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 0.75rem; font-family: monospace; font-size: 0.85rem;">
+                <%= event.sequence_number %>
+              </td>
+              <td style="padding: 0.75rem;">
+                <%= event.event_type %>
+              </td>
+              <td style="padding: 0.75rem;">
+                <%= event.bpm || '—' %>
+              </td>
+              <td style="padding: 0.75rem;">
+                <%= link_to "Note ##{event.note_id}", note_path(event.note_id) %>
+              </td>
+              <td style="padding: 0.75rem; color: var(--color-text-subtle);">
+                <%= time_ago_in_words(event.created_at) %> ago
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-subtle">No events yet</p>
+    <% end %>
+  </div>
+  
+  <div class="mt-4">
+    <%= link_to "← Back to Notes", notes_path, class: "btn btn-ghost" %>
+  </div>
+</div>

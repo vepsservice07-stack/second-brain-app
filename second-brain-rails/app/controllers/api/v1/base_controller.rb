@@ -1,16 +1,12 @@
 module Api
   module V1
-    class BaseController < ActionController::API
-      # Skip CSRF for API requests
-      skip_before_action :verify_authenticity_token, raise: false
+    class BaseController < ApplicationController
+      skip_before_action :verify_authenticity_token
+      before_action :authenticate_user!
+      respond_to :json
       
-      # Standard JSON response
-      def render_json(data, status: :ok)
-        render json: data, status: status
-      end
-      
-      def render_error(message, status: :unprocessable_entity)
-        render json: { error: message }, status: status
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        render json: { error: e.message }, status: :not_found
       end
     end
   end

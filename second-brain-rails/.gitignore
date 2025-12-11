@@ -34,3 +34,7 @@
 /config/*.key
 
 config/gcs_keyfile.json
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+
